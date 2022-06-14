@@ -38,5 +38,6 @@ export default {
   border-radius: 8px;
   width: 300px;
   min-height: 170px;
+  word-break: break-all;
 }
 </style>
