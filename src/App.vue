@@ -1,26 +1,52 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="resume-block">
+    <AboutYourForm @block-added="addBlock"/>
+
+    <SummaryComponent :blocks="blocks"/>
+  </div>
+
+  <CommentBlock/>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AboutYourForm from '@/components/AboutYourForm'
+import SummaryComponent from '@/components/SummaryComponent'
+import CommentBlock from '@/components/CommentBlock'
 
 export default {
   name: 'App',
+  data: () => {
+    return {
+      blocks: []
+    }
+  },
+  methods: {
+    addBlock (block) {
+      this.blocks.push(block)
+    }
+  },
   components: {
-    HelloWorld
+    AboutYourForm: AboutYourForm,
+    SummaryComponent: SummaryComponent,
+    CommentBlock: CommentBlock
   }
 }
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #2b3a4fc0;
+  min-height: 100vh;
+
+  .resume-block {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+  }
 }
 </style>
