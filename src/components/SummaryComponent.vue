@@ -8,8 +8,11 @@
         v-bind="{value: block.value}"
       ></component>
     </template>
-    <h3 v-else>Добавьте первый блок, чтобы увидеть результат</h3>
+    <h3 v-else>{{ $i18n('app.title') }}</h3>
   </div>
+  <button class="item btn"
+          @click.prevent="changeLang">LANGUAGE
+  </button>
 </template>
 
 <script>
@@ -19,7 +22,14 @@ import ResumeText from './parts/ResumeText'
 import ResumeTitle from './parts/ResumeTitle'
 
 export default {
+  inject: ['langChange'],
   props: ['blocks'],
+  methods: {
+    changeLang () {
+      this.langChange('en')
+      this.$forceUpdate()
+    }
+  },
   components: {
     ResumeTitle,
     ResumeText,
