@@ -1,47 +1,70 @@
 <template>
-  <div class="container">
-    <div class="comments" v-if="comments.length > 0"></div>
-    <button class="btn" v-else>Загрузить комментарии</button>
+  <div class="container" v-if="comments.length > 0">
+    <div class="comments-wrapper" v-for="item in comments" v-bind:key="item">
+        <div class="name-autor">
+          {{ item.author }}
+        </div>
+        <div class="body-comment">
+          {{ item.text }}
+        </div>
+        <div class="data-comment">
+          {{ item.time }}
+        </div>
+    </div>
   </div>
+  <button class="btn" @click="loadComments()" v-else>Загрузить комментарии</button>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data: () => {
     return {
       comments: []
     }
-  }
+  },
+  methods: {
+    async loadComments () {
+      const resp = await axios.get('http://localhost:3000/comments/')
+      this.comments = resp.data
+    }
 
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .container {
-  margin-top: 8px;
+  margin: 8px;
+  width: 95%;
 
-  .comments {
-    margin-left: 8px;
-    margin-top: 8px;
+  .comments-wrapper {
+    padding: 4px;
     background-color: white;
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
     border-radius: 8px;
-    width: 500px;
-    height: 400px;
+    margin-top: 8px;
   }
 
-  .btn {
-    background-color: green;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    width: 120px;
+  .name-autor {
 
-    &:hover {
-      transition: .3s;
-      color: black;
-      background-color: aquamarine;
-    }
+  }
+
+}
+
+.btn {
+  margin-top: 8px;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  width: 120px;
+
+  &:hover {
+    transition: .3s;
+    color: black;
+    background-color: aquamarine;
   }
 }
 </style>
